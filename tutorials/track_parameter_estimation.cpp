@@ -20,10 +20,7 @@ using namespace traccc;
 
 int main()
 {
-    // Memory resource used by the EDM.
-    vecmem::host_memory_resource host_mr;
-
-    // 2 T B field in z-axis
+    // 2T magnetic field in z-axis
     const vector3 B{0.f * unit<scalar>::T, 0.f * unit<scalar>::T,
                     2.f * unit<scalar>::T};
 
@@ -35,28 +32,31 @@ int main()
     detray::detail::helix<traccc::default_algebra> hlx(
         pos, time, vector::normalize(mom), q / vector::norm(mom), &B);
 
-    // Make three spacepoints with the helix
+    // Make three spacepoints by propagating the helix
     spacepoint_collection_types::host spacepoints;
     spacepoints.push_back({hlx(50 * unit<scalar>::mm), {}});
     spacepoints.push_back({hlx(100 * unit<scalar>::mm), {}});
     spacepoints.push_back({hlx(150 * unit<scalar>::mm), {}});
 
-    // Make a seed from the three spacepoints
+    // Make a seed from the three spacepoints (i.e. a triplet)
     seed_collection_types::host seeds;
     seeds.push_back({0u, 1u, 2u, 0.f, 0.f});
 
     // Track parameter estimation algorithm object
+    vecmem::host_memory_resource host_mr;
     traccc::track_params_estimation tp(host_mr);
 
     // Run track parameter estimation
     auto bound_params = tp(spacepoints, seeds, B);
 
     // Print the momentum of esitmated track parameter
-    const vector3 p = bound_params[0].mom(q);
+    const vector3 mom_estimated = bound_params[0].mom(q);
 
     std::cout << "Truth momentum [GeV/c]    : (" << mom[0] << "," << mom[1]
               << "," << mom[2] << ")" << std::endl;
 
-    std::cout << "Estimated momentum [GeV/c]: (" << p[0] << "," << p[1]
-              << "," << p[2] << ")" << std::endl;
+    std::cout << "Estimated momentum [GeV/c]: (" 
+              << mom_estimated[0] << "," 
+              << mom_estimated[1] << ","
+              << mom_estimated[2] << ")" << std::endl;
 }

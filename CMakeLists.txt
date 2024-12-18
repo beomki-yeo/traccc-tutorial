@@ -11,6 +11,10 @@ find_package( Boost 1.86.0 REQUIRED COMPONENTS program_options filesystem log)
 add_subdirectory(extern/covfie)
 add_subdirectory(extern/traccc)
 
+# Seeding
+add_executable( seeding tutorials/seeding.cpp )
+target_link_libraries( seeding traccc::core )
+
 # Track parameter estimation
 add_executable( track_parameter_estimation tutorials/track_parameter_estimation.cpp )
 target_link_libraries( track_parameter_estimation traccc::core )

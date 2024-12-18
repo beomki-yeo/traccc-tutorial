@@ -45,6 +45,9 @@ int main()
         pos, time, vector::normalize(mom_2nd), q / vector::norm(mom_2nd), &B);
 
     // Make three spacepoints from each helix
+    // Spacepoint constructor inputs:
+    // 1. 3D position
+    // 2. corresponding measurement object (optional)
     spacepoint_collection_types::host spacepoints;
     spacepoints.push_back({hlx_1st(50 * unit<scalar>::mm), {}});
     spacepoints.push_back({hlx_1st(100 * unit<scalar>::mm), {}});

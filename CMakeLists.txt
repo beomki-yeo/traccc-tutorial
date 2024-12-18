@@ -12,5 +12,5 @@ add_subdirectory(extern/covfie)
 add_subdirectory(extern/traccc)
 
 # Track parameter estimation
-add_executable( track_params_estimation tutorials/track_params_estimation.cpp )
-target_link_libraries( track_params_estimation traccc::core )
+add_executable( track_parameter_estimation tutorials/track_parameter_estimation.cpp )
+target_link_libraries( track_parameter_estimation traccc::core )

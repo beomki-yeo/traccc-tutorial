@@ -18,7 +18,3 @@ target_link_libraries( clusterization traccc::core )
 # Seeding
 add_executable( seeding tutorials/seeding.cpp )
 target_link_libraries( seeding traccc::core )
-
-# Track parameter estimation
-add_executable( track_parameter_estimation tutorials/track_parameter_estimation.cpp )
-target_link_libraries( track_parameter_estimation traccc::core )

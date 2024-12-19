@@ -62,6 +62,8 @@ int main()
 
     // Config objects
     traccc::seedfinder_config finder_config;
+    finder_config.bFieldInZ = B[2]; // Set the B field assumption for seeding
+
     traccc::spacepoint_grid_config grid_config(finder_config);
     traccc::seedfilter_config filter_config;
 

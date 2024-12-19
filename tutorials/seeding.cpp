@@ -1,6 +1,6 @@
 /** TRACCC tutorial for beginners
  *
- * (c) 2024 UC Berkeley and LBNL
+ * (c) 2021-2022 CERN for the benefit of the ACTS project
  *
  * Mozilla Public License Version 2.0
  */

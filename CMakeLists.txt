@@ -11,6 +11,10 @@ find_package( Boost 1.86.0 REQUIRED COMPONENTS program_options filesystem log)
 add_subdirectory(extern/covfie)
 add_subdirectory(extern/traccc)
 
+# Clusterization
+add_executable( clusterization tutorials/clusterization.cpp )
+target_link_libraries( clusterization traccc::core )
+
 # Seeding
 add_executable( seeding tutorials/seeding.cpp )
 target_link_libraries( seeding traccc::core )

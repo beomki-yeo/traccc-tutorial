@@ -1,4 +1,4 @@
-# TRACCC tutorial
+# TRACCC tutorial for beginners
 #
 # (c) 2024 UC Berkeley and LBNL
 #

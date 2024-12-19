@@ -1,4 +1,4 @@
-/** TRACCC tutorial
+/** TRACCC tutorial for beginners
  *
  * (c) 2024 UC Berkeley and LBNL
  *
@@ -26,7 +26,7 @@ int main()
                     2.f * unit<scalar>::T};
 
     /***********************************************
-     * Generate spacepoint data used for seeding
+     * Generate spacepoint data with helices
      ***********************************************/
 
     // Make two helices of negative charged particle
@@ -57,7 +57,7 @@ int main()
     spacepoints.push_back({hlx_2nd(150 * unit<scalar>::mm), {}});
 
     /***********************************************
-     * Run Seeding (Find triplets)
+     * Run Seeding
      ***********************************************/
 
     // Config objects
@@ -98,4 +98,6 @@ int main()
      * 3. Run the seeding and track parameter estimation again 
      * 4. Check the results (momentum and position)
      *************************************************************/
+
+    return 1;
 }

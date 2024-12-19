@@ -1,3 +1,9 @@
+# TRACCC tutorial for beginners
+#
+# (c) 2024 UC Berkeley and LBNL
+#
+# Mozilla Public License Version 2.0
+
 # Set up the project.
 cmake_minimum_required( VERSION 3.22 )
 project( momentum_resolution LANGUAGES CXX )

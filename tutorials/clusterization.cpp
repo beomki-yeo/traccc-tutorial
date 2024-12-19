@@ -1,6 +1,6 @@
-/** TRACCC library, part of the ACTS project (R&D line)
+/** TRACCC tutorial for beginners
  *
- * (c) 2022-2024 CERN for the benefit of the ACTS project
+ * (c) 2024 UC Berkeley and LBNL
  *
  * Mozilla Public License Version 2.0
  */
@@ -18,5 +18,4 @@ using namespace traccc;
 
 int main()
 {
-    return 1;
 }

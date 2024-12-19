@@ -19,7 +19,7 @@ add_subdirectory(extern/traccc)
 
 # Clusterization
 add_executable( clusterization tutorials/clusterization.cpp )
-target_link_libraries( clusterization traccc::core )
+target_link_libraries( clusterization traccc::core traccc::simulation )
 
 # Seeding
 add_executable( seeding tutorials/seeding.cpp )

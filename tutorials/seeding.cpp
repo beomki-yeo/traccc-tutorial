@@ -91,7 +91,7 @@ int main()
     std::cout << "Momentum of the 2nd seed [GeV/c]: " << bound_params[1].p(q) << std::endl;
 
     /*************************************************************
-     * Tasks
+     * Practice
      * 
      * 1. Create the 3rd helix with a positive charge 
      * 2. Generate new three spacepoints from the 3rd helix

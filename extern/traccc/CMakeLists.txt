@@ -18,7 +18,7 @@ message( STATUS "Building Traccc as part of the project" )
 
 # Declare where to get Traccc from.
 set( TRACCC_SOURCE  
-   "GIT_REPOSITORY;https://github.com/acts-project/traccc;GIT_TAG;c06d483980feeebc7f2c874255f8d89617771365"
+   "URL;https://github.com/acts-project/traccc/archive/refs/tags/v0.18.0.tar.gz;URL_MD5;2fbdb6115877d59cb5f4db73825caf82"
    CACHE STRING "Source for Traccc, when built as part of this project" )
 
 mark_as_advanced( TRACCC_SOURCE )

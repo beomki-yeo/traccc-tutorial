@@ -21,7 +21,7 @@ using namespace traccc;
 
 int main()
 {
-    // 2T magnetic field in z-axis
+    // 2T magnetic field in the z-axis
     const vector3 B{0.f * unit<scalar>::T, 0.f * unit<scalar>::T,
                     2.f * unit<scalar>::T};
 

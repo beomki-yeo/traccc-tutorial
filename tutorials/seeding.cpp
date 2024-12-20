@@ -21,15 +21,16 @@ using namespace traccc;
 
 int main()
 {
-    // 2T magnetic field in the z-axis
-    const vector3 B{0.f * unit<scalar>::T, 0.f * unit<scalar>::T,
-                    2.f * unit<scalar>::T};
-
+    
     /***********************************************
      * Generate spacepoint data with helices
      ***********************************************/
 
-    // Make two helices of negative charged particle
+    // 2T magnetic field in the z-axis
+    const vector3 B{0.f * unit<scalar>::T, 0.f * unit<scalar>::T,
+                    2.f * unit<scalar>::T};
+
+    // Make two helices of negative charged particle under the magnetic field
     const scalar q{-1.f * unit<scalar>::e};
     const point3 pos{0.f, 0.f, 0.f};
     const scalar time{0.f};

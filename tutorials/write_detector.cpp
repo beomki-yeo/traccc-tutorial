@@ -38,8 +38,8 @@ int main()
 
     // Senstive module dimension
     detray::mask<detray::rectangle2D> sensitive_rect{0u,
-                                                     100.f * traccc::unit<scalar>::mm,
-                                                     100.f * traccc::unit<scalar>::mm};
+                                                     10000.f * traccc::unit<scalar>::mm,
+                                                     10000.f * traccc::unit<scalar>::mm};
     // Module alignment directio in x-axis
     const vector3 align_axis{1.f, 0.f, 0.f};
     detray::detail::ray<traccc::default_algebra> pilot_track{

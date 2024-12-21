@@ -31,4 +31,4 @@ target_link_libraries( track_fitting traccc::core traccc::simulation )
 
 # Simulation
 add_executable( write_detector tutorials/write_detector.cpp )
-target_link_libraries( write_detector traccc::core traccc::simulation )
+target_link_libraries( write_detector traccc::core traccc::simulation traccc::io )

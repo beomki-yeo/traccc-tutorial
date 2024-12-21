@@ -50,6 +50,7 @@ int main()
     tel_cfg.positions({0, 100, 200, 300, 400}); // unit in mm
     tel_cfg.module_material(detray::silicon<scalar>());
     tel_cfg.mat_thickness(80.f * unit<scalar>::um);
+    tel_cfg.envelope(200 * unit<scalar>::mm);
 
     const auto [det, name_map] = build_telescope_detector(host_mr, tel_cfg);
 

@@ -67,7 +67,7 @@ int main()
         detray::bound_parameters_vector<traccc::default_algebra>({10.f, -10.f}, 0.f, constant<scalar>::pi_2, -0.9f, 0.f),
         matrix::identity<detray::bound_matrix<traccc::default_algebra>>());
 
-    // Measurements of the 1st particle
+    // Measurements from the 1st particle
     track_candidates.at(0u).items.push_back({{0.0050959279760718346f, -0.03403015062212944f},
                                              {0.0024999999441206455, 0.0024999999441206455},
                                              detray::geometry::barcode{281474976710783}});
@@ -84,7 +84,7 @@ int main()
                                              {0.0024999999441206455, 0.0024999999441206455},
                                              detray::geometry::barcode{281475513581951}});
 
-    // Measurements of the 2nd particle
+    // Measurements from the 2nd particle
     track_candidates.at(1u).items.push_back({{0.093167312443256378, 0.033621422946453094},
                                              {0.0024999999441206455, 0.0024999999441206455},
                                              detray::geometry::barcode{281474976710783}});

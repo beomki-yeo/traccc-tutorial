@@ -41,8 +41,8 @@ target_link_libraries( write_detector traccc::core traccc::simulation traccc::io
 
 # CUDA Track fitting
 if(${BUILD_CUDA})
-    add_executable( cuda_track_fitting tutorials/cuda_track_fitting.cpp )
-    target_link_libraries( cuda_track_fitting traccc::core traccc::cuda  
+    add_executable( track_fitting_cuda tutorials/track_fitting_cuda.cpp )
+    target_link_libraries( track_fitting_cuda traccc::core traccc::cuda  
                            traccc::device_common traccc::simulation vecmem::cuda )
 endif()
 

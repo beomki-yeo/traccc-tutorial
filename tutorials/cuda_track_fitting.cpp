@@ -9,7 +9,10 @@
 #include "traccc/definitions/common.hpp"
 #include "traccc/geometry/detector.hpp"
 #include "traccc/edm/measurement.hpp"
-#include "traccc/fitting/kalman_fitting_algorithm.hpp"
+#include "traccc/cuda/fitting/fitting_algorithm.hpp"
+#include "traccc/fitting/kalman_filter/kalman_fitter.hpp"
+#include "traccc/device/container_h2d_copy_alg.hpp"
+#include "traccc/device/container_d2h_copy_alg.hpp"
 
 // detray include(s).
 #include "detray/core/detector.hpp"
@@ -21,18 +24,34 @@
 
 // VecMem include(s).
 #include <vecmem/memory/host_memory_resource.hpp>
+#include <vecmem/memory/cuda/device_memory_resource.hpp>
+#include <vecmem/memory/cuda/host_memory_resource.hpp>
+#include <vecmem/utils/cuda/async_copy.hpp>
 
 using namespace traccc;
 
 int main()
 {
-    
+    /// Type declarations
+    using stepper_type =
+        detray::rk_stepper<detray::bfield::const_field_t::view_t,
+                           traccc::default_detector::host::algebra_type,
+                           detray::constrained_step<>>;
+    using device_navigator_type =
+        detray::navigator<const traccc::default_detector::device>;
+
+    using device_fitting_algorithm = traccc::cuda::fitting_algorithm<
+        traccc::kalman_fitter<stepper_type, device_navigator_type>>;
+
     /*******************************
      * Read the telescope geometry
      *******************************/
 
     // Memory resource used by the EDM.
     vecmem::host_memory_resource host_mr;
+    vecmem::cuda::device_memory_resource device_mr;
+    vecmem::cuda::host_memory_resource cuda_host_mr;
+    traccc::memory_resource mr{device_mr, &cuda_host_mr};
 
     detray::io::detector_reader_config reader_cfg{};
     std::string file{__FILE__};
@@ -42,6 +61,18 @@ int main()
 
     const auto [host_det, names] =
         detray::io::read_detector<traccc::default_detector::host>(host_mr, reader_cfg);
+
+    // CUDA types used.
+    traccc::cuda::stream stream;
+    vecmem::cuda::async_copy async_copy{stream.cudaStream()};
+
+    // Copy detector from host to device
+    traccc::default_detector::buffer device_detector;
+    traccc::default_detector::view device_detector_view;
+    device_detector = detray::get_buffer(detray::get_data(host_det),
+                                         device_mr, async_copy);
+    stream.synchronize();
+    device_detector_view = detray::get_data(device_detector);
 
     /***************************
      * Prepare track candidate
@@ -98,6 +129,15 @@ int main()
                                              {0.0024999999441206455, 0.0024999999441206455},
                                              detray::geometry::barcode{281475513581951}});
 
+    // Copy track candidates from host to device
+    traccc::device::container_h2d_copy_alg<
+        traccc::track_candidate_container_types>
+        track_candidate_h2d{mr, async_copy};
+
+    const traccc::track_candidate_container_types::buffer
+        track_candidates_cuda_buffer =
+            track_candidate_h2d(traccc::get_data(track_candidates));
+
     /******************************
      * Run Fitting
      ******************************/
@@ -106,28 +146,38 @@ int main()
     traccc::fitting_config fit_cfg;
     fit_cfg.propagation.stepping.rk_error_tol = 1e-8f * unit<float>::mm;
     fit_cfg.use_backward_filter = true;
-    traccc::host::kalman_fitting_algorithm fitting(fit_cfg, host_mr);
+    device_fitting_algorithm device_fitting(fit_cfg, mr, async_copy, stream);
 
     const traccc::vector3 B{0, 0, 2 * detray::unit<traccc::scalar>::T};
     auto field = detray::bfield::create_const_field(B);
 
-    // Run fitting
-    auto track_states =
-        fitting(host_det, field, traccc::get_data(track_candidates));
+    // Instantiate cuda containers/collections
+    traccc::track_state_container_types::buffer track_states_cuda_buffer{
+        {{}, *(mr.host)}, {{}, *(mr.host), mr.host}};
+
+    // Run CUDA fitting
+    track_states_cuda_buffer = device_fitting(
+        device_detector_view, field, track_candidates_cuda_buffer);
+
+    // Copy track states from device to host
+    traccc::device::container_d2h_copy_alg<traccc::track_state_container_types>
+        track_state_d2h{mr, async_copy};
+    traccc::track_state_container_types::host track_states_cuda =
+        track_state_d2h(track_states_cuda_buffer);
 
     const scalar q = -1.f;
-    
+
     std::cout << std::endl;
     std::cout << "---- 1st track fitting result ----" << std::endl;
-    std::cout << "NDF:  " << track_states.at(0u).header.ndf
-              << "  Chi2: " << track_states.at(0u).header.chi2 << std::endl;
-    std::cout << "Fitted momentum [GeV/c]: " << track_states.at(0u).header.fit_params.p(q) << std::endl;
+    std::cout << "NDF:  " << track_states_cuda.at(0u).header.ndf
+              << "  Chi2: " << track_states_cuda.at(0u).header.chi2 << std::endl;
+    std::cout << "Fitted momentum [GeV/c]: " << track_states_cuda.at(0u).header.fit_params.p(q) << std::endl;
     std::cout << std::endl;
 
     std::cout << "---- 2nd track fitting result ----" << std::endl;
-    std::cout << "NDF:  " << track_states.at(1u).header.ndf
-              << "  Chi2: " << track_states.at(1u).header.chi2 << std::endl;
-    std::cout << "Fitted momentum [GeV/c]: " << track_states.at(1u).header.fit_params.p(q) << std::endl;
+    std::cout << "NDF:  " << track_states_cuda.at(1u).header.ndf
+              << "  Chi2: " << track_states_cuda.at(1u).header.chi2 << std::endl;
+    std::cout << "Fitted momentum [GeV/c]: " << track_states_cuda.at(1u).header.fit_params.p(q) << std::endl;
     std::cout << std::endl;
 
     return 1;

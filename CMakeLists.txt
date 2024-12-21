@@ -10,8 +10,13 @@ project( momentum_resolution LANGUAGES CXX )
 
 # Set up the used C++ standard(s).
 set( CMAKE_CXX_STANDARD 20 CACHE STRING "The (host) C++ standard to use" )
+set( CMAKE_CUDA_STANDARD 20 CACHE STRING "The (CUDA) C++ standard to use" )
+
+# Build options
+option(BUILD_CUDA "Build the CUDA sources" FALSE)
 
 # Include traccc
+add_subdirectory(extern/cccl)
 add_subdirectory(extern/traccc)
 
 # Clusterization
@@ -33,3 +38,13 @@ target_link_libraries( track_fitting traccc::core traccc::simulation )
 # Telescope detector writer
 add_executable( write_detector tutorials/write_detector.cpp )
 target_link_libraries( write_detector traccc::core traccc::simulation traccc::io )
+
+# CUDA Track fitting
+if(${BUILD_CUDA})
+    add_executable( cuda_track_fitting tutorials/cuda_track_fitting.cpp )
+    target_link_libraries( cuda_track_fitting traccc::core traccc::cuda  
+                           traccc::device_common traccc::simulation vecmem::cuda )
+endif()
+
+
+

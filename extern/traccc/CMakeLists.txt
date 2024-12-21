@@ -44,6 +44,8 @@ set( TRACCC_BUILD_BENCHMARKS FALSE CACHE BOOL "Turn off benchmark build" )
 set( TRACCC_USE_ROOT FALSE CACHE BOOL "Turn off ROOT" )
 set( TRACCC_USE_ROOT FALSE CACHE BOOL "Turn off ROOT" )
 set( TRACCC_BUILD_EXAMPLES FALSE CACHE BOOL "Turn off example build" )
+set( TRACCC_BUILD_CUDA ${BUILD_CUDA} CACHE BOOL "Enable traccc CUDA platform")
+set( TRACCC_SETUP_THRUST FALSE CACHE BOOL "Do not set up CCCL as part of Traccc"  )
 
 # Get it into the current directory.
 FetchContent_MakeAvailable( Traccc )

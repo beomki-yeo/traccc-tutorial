@@ -25,10 +25,10 @@ target_link_libraries( clusterization traccc::core traccc::simulation )
 add_executable( seeding tutorials/seeding.cpp )
 target_link_libraries( seeding traccc::core )
 
-# Track finding
-add_executable( track_finding tutorials/track_finding.cpp )
-target_link_libraries( track_finding traccc::core traccc::simulation )
-
 # Track fitting
 add_executable( track_fitting tutorials/track_fitting.cpp )
 target_link_libraries( track_fitting traccc::core traccc::simulation )
+
+# Simulation
+add_executable( write_detector tutorials/write_detector.cpp )
+target_link_libraries( write_detector traccc::core traccc::simulation )

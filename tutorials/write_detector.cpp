@@ -7,7 +7,6 @@
 
 // traccc include(s).
 #include "traccc/definitions/common.hpp"
-#include "traccc/fitting/kalman_filter/kalman_fitter.hpp"
 
 // detray include(s).
 #include "detray/core/detector.hpp"
@@ -15,8 +14,8 @@
 #include "detray/navigation/navigator.hpp"
 #include "detray/propagator/propagator.hpp"
 #include "detray/propagator/rk_stepper.hpp"
-#include "detray/core/detector_metadata.hpp"
 #include "detray/test/utils/detectors/build_telescope_detector.hpp"
+#include "detray/io/frontend/detector_writer.hpp"
 
 // VecMem include(s).
 #include <vecmem/memory/host_memory_resource.hpp>
@@ -25,21 +24,9 @@ using namespace traccc;
 
 int main()
 {
-    /// Type declarations
-    using host_detector_type = detray::detector<detray::default_metadata,
-                                                detray::host_container_types>;
-
-    using b_field_t = covfie::field<detray::bfield::const_bknd_t>;
-    using rk_stepper_type =
-        detray::rk_stepper<b_field_t::view_t, traccc::default_algebra,
-                           detray::constrained_step<>>;
-
-    using host_navigator_type = detray::navigator<const host_detector_type>;
-    using host_fitter_type =
-        traccc::kalman_fitter<rk_stepper_type, host_navigator_type>;
 
     /*****************************
-     * Build a geometry
+     * Build and write a geometry
      *****************************/
 
     // Memory resource used by the EDM.
@@ -60,26 +47,17 @@ int main()
 
     // Make a telescope geometry with 5 pixel modules
     detray::tel_det_config tel_cfg{sensitive_rect, pilot_track};
-    tel_cfg.positions({100, 200, 300, 400, 500}); // unit in mm
+    tel_cfg.positions({0, 100, 200, 300, 400}); // unit in mm
     tel_cfg.module_material(detray::silicon<scalar>());
     tel_cfg.mat_thickness(80.f * unit<scalar>::um);
-    tel_cfg.envelope(200);
 
     const auto [det, name_map] = build_telescope_detector(host_mr, tel_cfg);
 
-    /******************************
-     * Prepare input measurements
-     ******************************/
-
-    /******************************
-     * Run Fitting
-     ******************************/
-
-    // Fitting algorithm object
-    traccc::fitting_config fit_cfg;
-    fit_cfg.use_backward_filter = true;
-    fit_cfg.covariance_inflation_factor = 1e3f;
-
+    // Create detector file
+    auto writer_cfg = detray::io::detector_writer_config{}
+                          .format(detray::io::format::json)
+                          .replace_files(true);
+    detray::io::write_detector(det, name_map, writer_cfg);
 
     return 1;
 }

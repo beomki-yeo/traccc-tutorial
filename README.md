@@ -1,5 +1,8 @@
 # traccc-tutorial
-Repository for traccc tutorial
+
+### Description
+
+Repository for traccc tutorial. In case one having a problem in compiling, let the devs know by filing an issue or sending an email
 
 ### Prerequisites
 - gcc with C++ 20 support

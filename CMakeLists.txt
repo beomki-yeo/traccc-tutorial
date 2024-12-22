@@ -13,7 +13,7 @@ set( CMAKE_CXX_STANDARD 20 CACHE STRING "The (host) C++ standard to use" )
 set( CMAKE_CUDA_STANDARD 20 CACHE STRING "The (CUDA) C++ standard to use" )
 
 # Build options
-option(BUILD_CUDA "Build the CUDA sources" FALSE)
+option(TUTORIAL_BUILD_CUDA "Build the CUDA sources" FALSE)
 
 # Include traccc
 add_subdirectory(extern/cccl)
@@ -40,7 +40,7 @@ add_executable( write_detector tutorials/write_detector.cpp )
 target_link_libraries( write_detector traccc::core detray::test_utils )
 
 # CUDA Track fitting
-if(${BUILD_CUDA})
+if(${TUTORIAL_BUILD_CUDA})
     add_executable( track_fitting_cuda tutorials/track_fitting_cuda.cpp )
     target_link_libraries( track_fitting_cuda traccc::core traccc::cuda  
                            traccc::device_common vecmem::cuda )

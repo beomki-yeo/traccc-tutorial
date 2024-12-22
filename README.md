@@ -14,7 +14,7 @@ In case one having a problem in compilation, please let the developers know by f
 
 | Option | Description | Default |
 | --- | --- | --- |
-| BUILD_CUDA  | Build the CUDA tutorials | OFF |
+| TUTORIAL_BUILD_CUDA  | Build the CUDA tutorials | OFF |
 
 ### Setup in Perlmutter
 
@@ -29,5 +29,5 @@ module load cudatoolkit/12.4
 To use A100, configure the project with a right architecture number:
 
 ```
-cmake <project_directory> -DBUILD_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=80
+cmake <project_directory> -DTUTORIAL_BUILD_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=80
 ```

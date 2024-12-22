@@ -96,7 +96,7 @@ int main()
                             detray::geometry::barcode{281475513581951},
                             9u});
 
-    // @@@@IMPORTANT@@@@
+    // @@@@ IMPORTANT @@@@
     // Measurements need to be sorted w.r.t. geometry barcode
     std::sort(measurements.begin(), measurements.end(),
               measurement_sort_comp());

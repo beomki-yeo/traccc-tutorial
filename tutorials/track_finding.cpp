@@ -135,12 +135,13 @@ int main()
                     vecmem::get_data(measurements),
                     vecmem::get_data(params));
 
+    std::cout << std::endl;
     std::cout << "Number of tracks found: " << track_candidates.size() << std::endl;
     std::cout << std::endl;
 
     for (std::size_t i = 0; i < track_candidates.size(); i++)
     {
-        std::cout << i << "-th track's candidates" << std::endl;
+        std::cout << i << "-th track's candidates:" << std::endl;
         auto &cands = track_candidates.at(i).items;
 
         for (std::size_t j = 0; j < cands.size(); j++)

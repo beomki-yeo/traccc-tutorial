@@ -105,7 +105,7 @@ int main()
     // Fitting algorithm object
     traccc::fitting_config fit_cfg;
     fit_cfg.propagation.stepping.rk_error_tol = 1e-8f * unit<float>::mm;
-    //@TIP: Kalman fitter can be repeated for more precise result
+    //@TIP: Kalman fitter can be repeated to obtain more precise result
     //fit_cfg.n_iterations = 2;
     fit_cfg.use_backward_filter = true;
     traccc::host::kalman_fitting_algorithm fitting(fit_cfg, host_mr);

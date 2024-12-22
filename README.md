@@ -19,6 +19,6 @@ module load cmake/3.30.2
 
 ### CMake Build Options
 
-| Option | Description |
-| --- | --- |
-| BUILD_CUDA  | Build the CUDA tutorials |
+| Option | Description | Default |
+| --- | --- | --- |
+| BUILD_CUDA  | Build the CUDA tutorials | OFF |

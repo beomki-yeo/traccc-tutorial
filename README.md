@@ -26,8 +26,8 @@ module load cmake/3.30.2
 module load cudatoolkit/12.4
 ```
 
-To use A100, configure the project with right architecture number:
+To use A100, configure the project with a right architecture number:
 
 ```
-cmake ../traccc-tutorial -DBUILD_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=80
+cmake <project_directory> -DBUILD_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=80
 ```

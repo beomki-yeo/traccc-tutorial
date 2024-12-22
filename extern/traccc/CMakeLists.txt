@@ -38,7 +38,7 @@ set( TRACCC_CUSTOM_SCALARTYPE "double" CACHE STRING
    "Scalar type to use in the Detray code" )
 set( DETRAY_CUSTOM_SCALARTYPE "double" CACHE STRING
    "Scalar type to use in the Detray code" )
-set( TRACCC_BUILD_IO TRUE CACHE BOOL "Turn on the IO build" )
+set( TRACCC_BUILD_IO FALSE CACHE BOOL "Turn off the IO build" )
 set( TRACCC_BUILD_TESTING FALSE CACHE BOOL "Turn off the Test build" )
 set( TRACCC_BUILD_BENCHMARKS FALSE CACHE BOOL "Turn off benchmark build" )
 set( TRACCC_USE_ROOT FALSE CACHE BOOL "Turn off ROOT" )

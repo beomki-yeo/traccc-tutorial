@@ -10,15 +10,24 @@ In case one having a problem in compilation, please let the developers know by f
 - CMake >= 3.22
 - (Optional) CUDA >= 12.4
 
-[Perlmutter](https://docs.nersc.gov/systems/perlmutter/architecture/) users can compile the tutorial project by running the following commands (CPU-only)
-          
-```              
-module load gcc/12.2.0
-module load cmake/3.30.2
-```
-
 ### CMake Build Options
 
 | Option | Description | Default |
 | --- | --- | --- |
 | BUILD_CUDA  | Build the CUDA tutorials | OFF |
+
+### Setup in Perlmutter
+
+[Perlmutter](https://docs.nersc.gov/systems/perlmutter/architecture/) users can compile the tutorial project by running the following commands (CPU-only)
+          
+```              
+module load gcc/12.2.0
+module load cmake/3.30.2
+module load cudatoolkit/12.4
+```
+
+To use A100, configure the project with right architecture number:
+
+```
+cmake ../traccc-tutorial -DBUILD_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=80
+```

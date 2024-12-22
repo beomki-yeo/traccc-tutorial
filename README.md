@@ -18,7 +18,7 @@ In case one having a problem in compilation, please let the developers know by f
 
 ### Setup in Perlmutter
 
-[Perlmutter](https://docs.nersc.gov/systems/perlmutter/architecture/) users can compile the tutorial project by running the following commands (CPU-only)
+[Perlmutter](https://docs.nersc.gov/systems/perlmutter/architecture/) users can compile the tutorial project by running the following commands in the login node.
           
 ```              
 module load gcc/12.2.0

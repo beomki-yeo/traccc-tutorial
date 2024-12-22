@@ -21,7 +21,7 @@ add_subdirectory(extern/traccc)
 
 # Clusterization
 add_executable( clusterization tutorials/clusterization.cpp )
-target_link_libraries( clusterization traccc::core traccc::simulation )
+target_link_libraries( clusterization traccc::core detray::test_utils )
 
 # Seeding
 add_executable( seeding tutorials/seeding.cpp )
@@ -29,21 +29,21 @@ target_link_libraries( seeding traccc::core )
 
 # Track finding
 add_executable( track_finding tutorials/track_finding.cpp )
-target_link_libraries( track_finding traccc::core traccc::simulation )
+target_link_libraries( track_finding traccc::core )
 
 # Track fitting
 add_executable( track_fitting tutorials/track_fitting.cpp )
-target_link_libraries( track_fitting traccc::core traccc::simulation )
+target_link_libraries( track_fitting traccc::core )
 
 # Telescope detector writer
 add_executable( write_detector tutorials/write_detector.cpp )
-target_link_libraries( write_detector traccc::core traccc::simulation traccc::io )
+target_link_libraries( write_detector traccc::core detray::test_utils )
 
 # CUDA Track fitting
 if(${BUILD_CUDA})
     add_executable( track_fitting_cuda tutorials/track_fitting_cuda.cpp )
     target_link_libraries( track_fitting_cuda traccc::core traccc::cuda  
-                           traccc::device_common traccc::simulation vecmem::cuda )
+                           traccc::device_common vecmem::cuda )
 endif()
 
 

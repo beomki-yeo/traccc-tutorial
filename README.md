@@ -3,7 +3,7 @@
 ### Description
 
 This is a repository for traccc tutorial. 
-In case one having a problem in compilation, please let the devs know by filing an issue or sending an email.
+In case one having a problem in compilation, please let the developers know by filing an issue or sending an email.
 
 ### Prerequisites
 - gcc with C++ 20 support

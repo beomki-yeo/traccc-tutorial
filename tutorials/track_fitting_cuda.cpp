@@ -169,14 +169,14 @@ int main()
 
     std::cout << std::endl;
     std::cout << "---- 1st track fitting result ----" << std::endl;
-    std::cout << "NDF:  " << track_states_cuda.at(0u).header.ndf
-              << "  Chi2: " << track_states_cuda.at(0u).header.chi2 << std::endl;
+    std::cout << "NDF: " << track_states_cuda.at(0u).header.ndf << std::endl;
+    std::cout << "Chi2: " << track_states_cuda.at(0u).header.chi2 << std::endl;
     std::cout << "Fitted momentum [GeV/c]: " << track_states_cuda.at(0u).header.fit_params.p(q) << std::endl;
     std::cout << std::endl;
 
     std::cout << "---- 2nd track fitting result ----" << std::endl;
-    std::cout << "NDF:  " << track_states_cuda.at(1u).header.ndf
-              << "  Chi2: " << track_states_cuda.at(1u).header.chi2 << std::endl;
+    std::cout << "NDF: " << track_states_cuda.at(1u).header.ndf << std::endl;
+    std::cout << "Chi2: " << track_states_cuda.at(1u).header.chi2 << std::endl;
     std::cout << "Fitted momentum [GeV/c]: " << track_states_cuda.at(1u).header.fit_params.p(q) << std::endl;
     std::cout << std::endl;
 

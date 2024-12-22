@@ -44,7 +44,7 @@ int main()
 
     // Make a tracking geometry with a single pixel module
     // 1. The normal axis of the module plane is the x-axis
-    // 2. Its origin is at (10 mm, 0 mm, 0 mm) 
+    // 2. Its origin is at (10 mm, 0 mm, 0 mm)
     const vector3 align_axis{1.f, 0.f, 0.f}; // normal axis in x-axis
     detray::detail::ray<traccc::default_algebra> pilot_track{
         {0, 0, 0}, 0, align_axis, -1};
@@ -61,8 +61,8 @@ int main()
     dd.resize(1u);
     dd.reference_x()[0] = 0.f;
     dd.reference_y()[0] = 0.f;
-    dd.pitch_x()[0] = 1.f; // Pitch of cells in the local x-axis
-    dd.pitch_y()[0] = 1.f; // Pitch of cells in the local y-axis
+    dd.pitch_x()[0] = 1.f;  // Pitch of cells in the local x-axis
+    dd.pitch_y()[0] = 1.f;  // Pitch of cells in the local y-axis
     dd.dimensions()[0] = 2; // 2 dimensions (i.e. pixel)
     dd.geometry_id()[0] = detray::geometry::barcode{0u};
 
@@ -73,6 +73,7 @@ int main()
     traccc::host::clusterization_algorithm ca(host_mr);
     auto measurements = ca(vecmem::get_data(cells), vecmem::get_data(dd));
 
+    std::cout << std::endl;
     std::cout << "Number of measurements: " << measurements.size() << std::endl;
     std::cout << "Local position of the 1st measurement: ("
               << measurements[0].local[0] << "," << measurements[0].local[1] << ")"
@@ -88,23 +89,17 @@ int main()
     traccc::host::silicon_pixel_spacepoint_formation_algorithm sf(host_mr);
     auto spacepoints = sf(det, vecmem::get_data(measurements));
 
+    std::cout << std::endl;
     std::cout << "Number of spacepoints: " << spacepoints.size() << std::endl;
     std::cout << "Global position of the 1st spacepoint: ("
-              << spacepoints[0].global[0] << "," 
-              << spacepoints[0].global[1] << "," 
+              << spacepoints[0].global[0] << ","
+              << spacepoints[0].global[1] << ","
               << spacepoints[0].global[2] << ")" << std::endl;
     std::cout << "Global position of the 2nd spacepoint: ("
-              << spacepoints[1].global[0] << "," 
-              << spacepoints[1].global[1] << "," 
-              << spacepoints[1].global[2] << ")" << std::endl;              
-
-    /*************************************************************
-     * Practice
-     * 
-     * 1. Make the 3rd cluster by adding cells
-     * 2. Run the seeding and track parameter estimation again 
-     * 4. Check the results (local and global position)
-     *************************************************************/
+              << spacepoints[1].global[0] << ","
+              << spacepoints[1].global[1] << ","
+              << spacepoints[1].global[2] << ")" << std::endl;
+    std::cout << std::endl;
 
     return 1;
 }

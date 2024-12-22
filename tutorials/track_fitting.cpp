@@ -26,7 +26,7 @@ using namespace traccc;
 
 int main()
 {
-    
+
     /*******************************
      * Read the telescope geometry
      *******************************/
@@ -116,17 +116,17 @@ int main()
         fitting(host_det, field, traccc::get_data(track_candidates));
 
     const scalar q = -1.f;
-    
+
     std::cout << std::endl;
     std::cout << "---- 1st track fitting result ----" << std::endl;
-    std::cout << "NDF:  " << track_states.at(0u).header.ndf
-              << "  Chi2: " << track_states.at(0u).header.chi2 << std::endl;
+    std::cout << "NDF: " << track_states.at(0u).header.ndf << std::endl;
+    std::cout << "Chi2: " << track_states.at(0u).header.chi2 << std::endl;
     std::cout << "Fitted momentum [GeV/c]: " << track_states.at(0u).header.fit_params.p(q) << std::endl;
     std::cout << std::endl;
 
     std::cout << "---- 2nd track fitting result ----" << std::endl;
-    std::cout << "NDF:  " << track_states.at(1u).header.ndf
-              << "  Chi2: " << track_states.at(1u).header.chi2 << std::endl;
+    std::cout << "NDF: " << track_states.at(1u).header.ndf << std::endl;
+    std::cout << "Chi2: " << track_states.at(1u).header.chi2 << std::endl;
     std::cout << "Fitted momentum [GeV/c]: " << track_states.at(1u).header.fit_params.p(q) << std::endl;
     std::cout << std::endl;
 

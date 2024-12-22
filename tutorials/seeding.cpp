@@ -21,7 +21,7 @@ using namespace traccc;
 
 int main()
 {
-    
+
     /***********************************************
      * Generate spacepoint data with helices
      ***********************************************/
@@ -76,6 +76,7 @@ int main()
     // Run seeding
     auto seeds = sa(spacepoints);
 
+    std::cout << std::endl;
     std::cout << "Number of seeds found: " << seeds.size() << std::endl;
 
     /***********************************************
@@ -88,17 +89,10 @@ int main()
     // Run track parameter estimation
     auto bound_params = tp(spacepoints, seeds, B);
 
+    std::cout << std::endl;
     std::cout << "Momentum of the 1st seed [GeV/c]: " << bound_params[0].p(q) << std::endl;
     std::cout << "Momentum of the 2nd seed [GeV/c]: " << bound_params[1].p(q) << std::endl;
-
-    /*************************************************************
-     * Practice
-     * 
-     * 1. Create the 3rd helix with a positive charge 
-     * 2. Generate new three spacepoints from the 3rd helix
-     * 3. Run the seeding and track parameter estimation again 
-     * 4. Check the results (momentum and position)
-     *************************************************************/
+    std::cout << std::endl;
 
     return 1;
 }

@@ -10,7 +10,7 @@ In case one having a problem in compilation, please let the devs know by filing 
 - CMake >= 3.22
 - (Optional) CUDA >= 12.4
 
-Perlmutter users can compile the tutorial project by running the following commands (CPU-only)
+[Perlmutter](https://docs.nersc.gov/systems/perlmutter/architecture/) users can compile the tutorial project by running the following commands (CPU-only)
           
 ```              
 module load gcc/12.2.0

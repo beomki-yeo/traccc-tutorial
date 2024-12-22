@@ -6,6 +6,13 @@ Repository for traccc tutorial
 - CMake >= 3.22
 - (Optional) CUDA >= 12.4
 
+Perlmutter users can compile the tutorial project by running the following commands (CPU-only)
+          
+```              
+module load gcc/12.2.0
+module load cmake/3.30.2
+```
+
 ### CMake Build Options
 
 | Option | Description |

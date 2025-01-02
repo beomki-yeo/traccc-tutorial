@@ -1,6 +1,6 @@
 # TRACCC tutorial for beginners
 #
-# (c) 2024 CERN for the benefit of the ACTS project
+# (c) 2024-2025 CERN for the benefit of the ACTS project
 #
 # Mozilla Public License Version 2.0
 
@@ -16,7 +16,6 @@ set( CMAKE_CUDA_STANDARD 20 CACHE STRING "The (CUDA) C++ standard to use" )
 option(TUTORIAL_BUILD_CUDA "Build the CUDA sources" FALSE)
 
 # Include traccc
-add_subdirectory(extern/cccl)
 add_subdirectory(extern/traccc)
 
 # Clusterization
@@ -42,9 +41,6 @@ target_link_libraries( write_detector traccc::core detray::test_utils )
 # CUDA Track fitting
 if(${TUTORIAL_BUILD_CUDA})
     add_executable( track_fitting_cuda tutorials/track_fitting_cuda.cpp )
-    target_link_libraries( track_fitting_cuda traccc::core traccc::cuda  
+    target_link_libraries( track_fitting_cuda traccc::core traccc::cuda
                            traccc::device_common vecmem::cuda )
 endif()
-
-
-
